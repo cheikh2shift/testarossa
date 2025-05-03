@@ -2,6 +2,8 @@
 
 ![](./rose.jpg)
 
+![demo of product](./demo.gif)
+
 A CLI that generates tests for the specified file using AI.
 
 # Requirements
