@@ -1,10 +1,10 @@
 # Testarossa CLI
-
 ![](./rose.jpg)
+A CLI that generates tests for the specified file using AI.
 
+Demo:
 ![demo of product](./demo.gif)
 
-A CLI that generates tests for the specified file using AI.
 
 # Requirements
 
@@ -12,11 +12,11 @@ A CLI that generates tests for the specified file using AI.
 
 # Flags
 
-- extension string
+extension string
     specifies which file extension type to extract soource code from (default ".go")
-- file string
+file string
     specifies file to generate tests for (default "./file.go")
-- output string
+output string
     specifies path to save generated file too (default "test.go")
-- projectroot string
+projectroot string
     specifies the root of the project (default "./")
