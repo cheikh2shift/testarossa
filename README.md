@@ -3,6 +3,7 @@
 A CLI that generates tests for the specified file using AI.
 
 Demo:
+
 ![demo of product](./demo.gif)
 
 
