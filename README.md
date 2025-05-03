@@ -12,11 +12,11 @@ Demo:
 
 # Flags
 
-extension string
-    specifies which file extension type to extract soource code from (default ".go")
-file string
-    specifies file to generate tests for (default "./file.go")
-output string
-    specifies path to save generated file too (default "test.go")
-projectroot string
-    specifies the root of the project (default "./")
+    extension string
+        specifies which file extension type to extract soource code from (default ".go")
+    file string
+        specifies file to generate tests for (default "./file.go")
+    output string
+        specifies path to save generated file too (default "test.go")
+    projectroot string
+        specifies the root of the project (default "./")
