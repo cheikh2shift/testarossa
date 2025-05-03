@@ -18,6 +18,6 @@ Demo:
     file string
         specifies file to generate tests for (default "./file.go")
     output string
-        specifies path to save generated file too (default "test.go")
+        specifies path to save generated file to (default "test.go")
     projectroot string
         specifies the root of the project (default "./")
