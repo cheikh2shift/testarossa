@@ -14,3 +14,16 @@ func GenTestWalks(count int) []pkg1.Tracker {
 
 	return result
 }
+
+func GenTestWalksInverted(count int) []pkg1.Tracker {
+
+	result := []pkg1.Tracker{}
+
+	for i := 0; i <= count; i++ {
+		result = append(result, pkg1.Tracker{
+			Walks: i - 2,
+		})
+	}
+
+	return result
+}
