@@ -10,6 +10,13 @@ Demo:
 # Requirements
 
 - Environment variable `GEMINI_KEY` set to a valid Gemini API key. Get one [here](https://aistudio.google.com/apikey).
+- Go 1.24.2 and up
+
+# Install
+Run the following command to install:
+
+    go install github.com/cheikh2shift/testarossa/cmd/test-gen@latest
+
 
 # Flags
 
