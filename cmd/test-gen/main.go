@@ -15,7 +15,7 @@ func main() {
 	root := flag.String("projectroot", "./", "specifies the root of the project")
 	suffix := flag.String("extension", ".go", "specifies which file extension type to extract soource code from")
 	file := flag.String("file", "./file.go", "specifies file to generate tests for")
-	outputfile := flag.String("output", "test.go", "specifies path to save generated file too")
+	outputfile := flag.String("output", "test.go", "specifies path to save generated file to")
 
 	flag.Parse()
 
