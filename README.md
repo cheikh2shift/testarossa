@@ -1,11 +1,6 @@
 # Testarossa CLI
-![](./rose.jpg)
-A CLI that generates tests for the specified file using AI.
 
-Demo:
-
-![demo of product](./demo.gif)
-
+A command-line tool to automatically generate test files for Go source code.
 
 # Requirements
 
@@ -17,14 +12,55 @@ Run the following command to install:
 
     go install github.com/cheikh2shift/testarossa/cmd/test-gen@latest
 
+---
 
-# Flags
+### Usage
 
-    extension string
-        specifies which file extension type to extract soource code from (default ".go")
-    file string
-        specifies file to generate tests for (default "./file.go")
-    output string
-        specifies path to save generated file to (default "test.go")
-    projectroot string
-        specifies the root of the project (default "./")
+```bash
+test-gen [flags]
+```
+
+---
+
+### Flags
+
+| Flag           | Type   | Default       | Description                                                                               |
+| -------------- | ------ | ------------- | ----------------------------------------------------------------------------------------- |
+| `-extension`   | string | `" .go"`      | File extension to scan for source files. Specify if your code uses a different extension. |
+| `-file`        | string | `"./file.go"` | Path to the single Go source file to generate tests for.                                  |
+| `-output`      | string | `"test.go"`   | Destination path (including filename) where the generated test code will be written.      |
+| `-projectroot` | string | `"./"`        | Root directory of your project. Used to resolve import paths and module structure.        |
+
+---
+
+### Examples
+
+* **Generate tests for a single file**
+
+  ```bash
+  test-gen -file ./handlers/user.go -output ./handlers/user_test.go
+  ```
+
+* **Scan non-standard extension**
+
+  ```bash
+  test-gen -extension ".gox" -file ./cmd/main.gox -output ./cmd/main_test.gox
+  ```
+
+* **Specify a custom project root**
+
+  ```bash
+  test-gen -projectroot ../my-go-project -output ./cmd/payments_test.go -file services/payments.go
+  ```
+
+---
+
+### Notes
+
+* By default, `test-gen` looks for files ending in `.go` under the current directory.
+* Ensure the `-projectroot` reflects the module root so imports and package paths are resolved correctly.
+* Output files will be overwritten if they already exist—back them up if necessary.
+
+Demo:
+
+![demo of product](./demo.gif)
