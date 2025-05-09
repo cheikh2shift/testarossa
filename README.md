@@ -50,7 +50,7 @@ test-gen [flags]
 * **Specify a custom project root**
 
   ```bash
-  test-gen -projectroot ../my-go-project -output ./cmd/payments_test.go -file services/payments.go
+  test-gen -projectroot ../my-go-project -output services/payments_test.go -file services/payments.go
   ```
 
 ---
