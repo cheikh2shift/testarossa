@@ -17,7 +17,7 @@ Run the following command to install:
 ### Usage
 
 ```bash
-test-gen [flags]
+test-gen [flags] <custom prompt>
 ```
 
 ---
@@ -51,6 +51,12 @@ test-gen [flags]
 
   ```bash
   test-gen -projectroot ../my-go-project -output services/payments_test.go -file services/payments.go
+  ```
+
+* **Generate REST API documentation**
+
+  ```bash
+  test-gen -projectroot ../my-go-project -output ./documentation.md -file handlers/mux.go "Generate REST API documentation for the following code" 
   ```
 
 ---
