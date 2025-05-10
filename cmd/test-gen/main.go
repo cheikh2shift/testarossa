@@ -18,6 +18,8 @@ func main() {
 	outputfile := flag.String("output", "test.go", "specifies path to save generated file to")
 
 	flag.Parse()
+	customPrompt := strings.Join(flag.Args(), " ")
+	splitInput := customPrompt == ""
 
 	testFile, err := os.ReadFile(*file)
 
@@ -39,8 +41,13 @@ path: %s
 Content: %s`, file.Path, file.Content)
 	}
 
+	if customPrompt == "" {
+		customPrompt = "Write a tests, with 100%% coverage for the following code:"
+	}
+
 	prompt := fmt.Sprintf(
-		"Write a tests, with 100%% coverage for the following code: \n%s",
+		"%s\n%s",
+		customPrompt,
 		testFile,
 	)
 
@@ -53,12 +60,14 @@ Content: %s`, file.Path, file.Content)
 		log.Fatalf("error generating tests: %v", err)
 	}
 
-	// clean up output
-	data = strings.Split(data, "```go")[1]
-	data = strings.Split(data, "```")[0]
+	if splitInput {
+		// clean up output
+		data = strings.Split(data, "```go")[1]
+		data = strings.Split(data, "```")[0]
 
-	if data == "" {
-		log.Fatal("unrecognized output received")
+		if data == "" {
+			log.Fatal("unrecognized output received")
+		}
 	}
 	// write file out
 	err = os.WriteFile(*outputfile, []byte(data), os.ModePerm)
