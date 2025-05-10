@@ -1,0 +1,64 @@
+{
+    "name": "testarossa-context-menu",
+    "displayName": "Testarossa",
+    "description": "Generate tests for Go source code",
+    "version": "0.0.1",
+    "publisher": "cheikh seck",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onLanguage:go"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "testarossaContextMenu.customAction",
+                "title": "Generate Tests"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "testarossaContextMenu.customAction",
+                    "when": "resourceLangId == go",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "testarossaContextMenu.customAction",
+                    "when": "editorLangId == go",
+                    "group": "navigation"
+                }
+            ]
+        }
+    },
+    "configuration": {
+        "title": "Go Context Menu Settings",
+        "properties": {
+            "testarossaContextMenu.geminiKey": {
+                "type": "string",
+                "default": "",
+                "description": "Your Gemini API key (GEMINI_KEY). Set this once in settings to enable API features."
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile"
+    },
+    "devDependencies": {
+        "typescript": "^4.4.3",
+        "vscode-test": "^1.5.2"
+    },
+    "dependencies": {
+        "vscode": "^1.1.34"
+    }
+}
