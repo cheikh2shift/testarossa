@@ -1,24 +1,34 @@
+// @ts-ignore
 import * as vscode from 'vscode';
 // @ts-ignore
 import { exec } from 'child_process';
 
 export async function activate(context: vscode.ExtensionContext) {
 
+  // check if command test-gen exists, if not (an error is produced), install
+  exec("test-gen -h", 
+    (error : any, stdout : string, stderr : string) => {
+        // error exists attempt to install
+        if (error) {
+          exec("go install github.com/cheikh2shift/testarossa/cmd/test-gen@latest", 
+            (error : any, stdout : string, stderr : string) => {
+                if (error) {
+                    vscode.window.showErrorMessage(`Error installing test-gen command: ${stderr || error.message}`);
+                    return;
+                }
+                vscode.window.showInformationMessage("test-gen installed");
+          });
+        }
+  })
+
   const config = vscode.workspace.getConfiguration('testarossaContextMenu');
   let geminiKey = config.get<string>('geminiKey') || '';
 
-  exec("go install github.com/cheikh2shift/testarossa/cmd/test-gen@latest", 
-    (error : any, stdout : string, stderr : string) => {
-        if (error) {
-            vscode.window.showErrorMessage(`Error installing test-gen command: ${stderr || error.message}`);
-            return;
-        }
-        vscode.window.showInformationMessage("test-gen installed");
-  });
+  
   // Prompt once for GEMINI_KEY if not set
   if (!geminiKey) {
     const input = await vscode.window.showInputBox({
-      prompt: 'Enter your GEMINI_KEY (Gemini API key)',
+      prompt: 'Enter your GEMINI KEY (Gemini API key)',
       ignoreFocusOut: true
     });
     if (input) {
@@ -29,7 +39,7 @@ export async function activate(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage('GEMINI_KEY saved to settings.');
         } catch (err) {
             vscode.window.showErrorMessage(
-                'Unable to save GEMINI_KEY programmatically. Please add it to your settings.json under "goContextMenu.geminiKey".'
+                'Unable to save GEMINI_KEY programmatically. Please add it to your settings.json under "testarossaContextMenu.geminiKey".'
             );
         }
     } else {
@@ -47,12 +57,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Compute filename without .go extension
     const fileName = filePath.split('.go')[0];
-    vscode.window.showInformationMessage(`Filename (sans .go): ${fileName}`);
+    // vscode.window.showInformationMessage(`Filename (sans .go): ${fileName}`);
 
     // Get project root
     const workspaceFolder = vscode.workspace.getWorkspaceFolder(fileUri);
     const projectRoot = workspaceFolder ? workspaceFolder.uri.fsPath : vscode.workspace.rootPath;
-    vscode.window.showInformationMessage(`Project root path: ${projectRoot}`);
+    // vscode.window.showInformationMessage(`Project root path: ${projectRoot}`);
 
     exec(`GEMINI_KEY=${geminiKey} test-gen -projectroot ${projectRoot} -file ${fileName}.go -output ${fileName}_test.go`, 
         (error : any, stdout : string, stderr : string) => {
